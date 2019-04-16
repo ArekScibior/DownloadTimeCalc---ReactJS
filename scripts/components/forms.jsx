@@ -1,6 +1,7 @@
 import React from 'react';
 import Result from './result.jsx';
 import ButtonSearch from './button-search.jsx';
+import { ToastContainer, toast } from 'react-toastify';
 
 class Forms extends React.Component {
     constructor(props){
@@ -26,6 +27,8 @@ class Forms extends React.Component {
         this.inputChangeSize = this.inputChangeSize.bind(this);
         this.calculate = this.calculate.bind(this);
         this.secondsToTime = this.secondsToTime.bind(this);
+        this.growlerError = this.growlerError.bind(this);
+
     }
 
     inputChangeSpeed(event) {
@@ -37,6 +40,7 @@ class Forms extends React.Component {
     }
 
     handleChangeUnits(event) {
+        alert.show('Oh look, an alert!')
         this.setState({unitSize: event.target.value});  
     }
 
@@ -75,6 +79,10 @@ class Forms extends React.Component {
         }
         return hours + ":" + minutes + ":" + seconds + " s"; 
     }
+    growlerError () {
+        toast.error("Ups, dane są niepoprawne!");
+    }
+
     calculate() {
         //Internet speed
         var res = ""
@@ -95,7 +103,7 @@ class Forms extends React.Component {
             } else {
                 console.warn("something wrong")
                 this.setState({showResult: false})
-                //basicUsage();
+                this.growlerError()
             }
         } else if (this.state.typeSpeed === this.state.typeList[0]) {
             //MB/s
@@ -127,12 +135,13 @@ class Forms extends React.Component {
             } else {
                 console.warn("something wrong")
                 this.setState({showResult: false})
-                //basicUsage();
+                this.growlerError()
+
             }
         }  else {
             console.warn("something wrong")
             this.setState({showResult: false})
-            //basicUsage();
+            this.growlerError()
         }
     }
 
